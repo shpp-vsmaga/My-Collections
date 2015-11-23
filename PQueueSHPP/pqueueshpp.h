@@ -69,7 +69,7 @@ public:
      * Returns the highest priority currently present in
      * the queue
      */
-    double peekPrioriry();
+    double peekPriority();
 
     /* Method: clear
      * Usage: pqueue.clear();
@@ -158,7 +158,7 @@ void PQueueSHPP<ValueType>::changePriority(ValueType value, double newPriority){
 }
 
 template<typename ValueType>
-double PQueueSHPP<ValueType>::peekPrioriry(){
+double PQueueSHPP<ValueType>::peekPriority(){
     return priorities[0];
 }
 

@@ -20,7 +20,7 @@ int main(){
 
     cout << "peek value " << prior.peek() << endl;
 
-    cout << "peek priority " << prior.peekPrioriry() << endl;
+    cout << "peek priority " << prior.peekPriority() << endl;
 
 
     for(int i = 0; i < 4; i++){
