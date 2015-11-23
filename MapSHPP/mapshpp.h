@@ -83,6 +83,12 @@ public:
      */
     KeyType getKey(int);
 
+    /* Method: containsKey
+     * Usage: if (map.containsKey(key))...
+     * ---------------------------------------------------
+     * Returns true if specified key exist in the map
+     */
+    bool containsKey(KeyType) const;
 
 /* Private methods prototypes and instase variables*/
 private:
@@ -183,6 +189,12 @@ void MapSHPP<KeyType, ValueType>::clear(){
 template<typename KeyType, typename ValueType>
 KeyType MapSHPP<KeyType, ValueType>::getKey(int index){
     return vector[index].Key;
+}
+
+template<typename KeyType, typename ValueType>
+bool MapSHPP<KeyType, ValueType>::containsKey(KeyType key) const{
+    if (findKey(key) == -1) return false;
+    return true;
 }
 
 #endif // MAPSHPP
