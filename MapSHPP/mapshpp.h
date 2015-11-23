@@ -90,6 +90,13 @@ public:
      */
     bool containsKey(KeyType) const;
 
+    /* Operator: []
+     * Usage: map[key] = value;
+     * ---------------------------------------------------
+     * Returns link to value by the specfied key.
+     */
+    ValueType& operator[](KeyType);
+
 /* Private methods prototypes and instase variables*/
 private:
 
@@ -195,6 +202,17 @@ template<typename KeyType, typename ValueType>
 bool MapSHPP<KeyType, ValueType>::containsKey(KeyType key) const{
     if (findKey(key) == -1) return false;
     return true;
+}
+
+template<typename KeyType, typename ValueType>
+ValueType& MapSHPP<KeyType, ValueType>::operator [](KeyType key){
+    int index = findKey(key);
+    if(index == -1){
+        std::cout << "Error, key not found"<< std::endl;
+        exit(1);
+    }
+
+    return vector[index].Value;
 }
 
 #endif // MAPSHPP

@@ -12,6 +12,8 @@ int main(){
     for(int i = 0; i < map.size(); i++){
         cout << map.getKey(i) << " - " << map.get(map.getKey(i)) << endl;
     }
+    map[2] = "hallo";
+    cout << map[2] << endl;
 
 
 }
