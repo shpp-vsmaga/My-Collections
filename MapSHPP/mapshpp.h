@@ -44,7 +44,7 @@ public:
      * ---------------------------------------------------
      * Returns value of the element with specified key.
      */
-    ValueType get(KeyType& key);
+    ValueType get(KeyType key);
 
     /* Method: isEmpty
      * Usage: if (map.isEmpty())...
@@ -156,7 +156,7 @@ int MapSHPP<KeyType, ValueType>::findKey(KeyType key){
 }
 
 template<typename KeyType, typename ValueType>
-ValueType MapSHPP<KeyType, ValueType>::get(KeyType& key){
+ValueType MapSHPP<KeyType, ValueType>::get(KeyType key){
 
         int index = findKey(key);
         if(index == -1){
@@ -209,7 +209,8 @@ template<typename KeyType, typename ValueType>
 ValueType& MapSHPP<KeyType, ValueType>::operator [](KeyType key){
     int index = findKey(key);
     if(index == -1){
-        return ValueType();
+        std::cout << "MapSHPP::operator[], invalid key" << std::endl;
+        exit(1);
     }
     return vector[index].Value;
 }
