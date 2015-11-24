@@ -44,7 +44,7 @@ public:
      * ---------------------------------------------------
      * Returns value of the element with specified key.
      */
-    ValueType get(KeyType);
+    ValueType get(KeyType& key);
 
     /* Method: isEmpty
      * Usage: if (map.isEmpty())...
@@ -88,7 +88,7 @@ public:
      * ---------------------------------------------------
      * Returns true if specified key exist in the map
      */
-    bool containsKey(KeyType) const;
+    bool containsKey(KeyType key);
 
     /* Operator: []
      * Usage: map[key] = value;
@@ -148,6 +148,7 @@ void MapSHPP<KeyType, ValueType>::put(KeyType key, ValueType value){
 
 template<typename KeyType, typename ValueType>
 int MapSHPP<KeyType, ValueType>::findKey(KeyType key){
+    //std::cout << key << std::endl;
     for(int i = 0; i < vector.size(); i++){
         if (vector[i].Key == key) return i;
     }
@@ -155,12 +156,11 @@ int MapSHPP<KeyType, ValueType>::findKey(KeyType key){
 }
 
 template<typename KeyType, typename ValueType>
-ValueType MapSHPP<KeyType, ValueType>::get(KeyType key){
+ValueType MapSHPP<KeyType, ValueType>::get(KeyType& key){
 
         int index = findKey(key);
         if(index == -1){
-            std::cout << "Error, key not found"<< std::endl;
-            exit(1);
+            return ValueType();
         }
 
         return vector[index].Value;
@@ -176,7 +176,7 @@ template<typename KeyType, typename ValueType>
 void MapSHPP<KeyType, ValueType>::remove(KeyType key){
     int index = findKey(key);
     if(index == -1){
-        std::cout << "Error, key not found"<< std::endl;
+        std::cout << "(remove)Key: "<< key<<" not found"<< std::endl;
         exit(1);
     }
 
@@ -199,8 +199,9 @@ KeyType MapSHPP<KeyType, ValueType>::getKey(int index){
 }
 
 template<typename KeyType, typename ValueType>
-bool MapSHPP<KeyType, ValueType>::containsKey(KeyType key) const{
-    if (findKey(key) == -1) return false;
+bool MapSHPP<KeyType, ValueType>::containsKey(KeyType key){
+    int index = findKey(key);
+    if (index == -1) return false;
     return true;
 }
 
@@ -208,10 +209,8 @@ template<typename KeyType, typename ValueType>
 ValueType& MapSHPP<KeyType, ValueType>::operator [](KeyType key){
     int index = findKey(key);
     if(index == -1){
-        std::cout << "Error, key not found"<< std::endl;
-        exit(1);
+        return ValueType();
     }
-
     return vector[index].Value;
 }
 
