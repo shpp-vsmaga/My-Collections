@@ -89,6 +89,7 @@ public:
     /* Method: size
      * Usage: int size = vector.size();
      * ----------------------------------------------------
+	 *
      * Returns current number of the elements.
      */
     int size() const;
