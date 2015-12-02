@@ -101,6 +101,16 @@ public:
      */
     ValueType& operator[](int);
 
+    /* Copy constructor*/
+    VectorSHPP(const VectorSHPP<ValueType> & src);
+
+    /* Operator: =
+     * vectorNew = vectorOld;
+     * -----------------------------------------------------
+     * Overloads assign operator
+     */
+    VectorSHPP<ValueType> & operator=(const VectorSHPP<ValueType> & src);
+
 /* Private methods prototypes and instase variables*/
 private:
 
@@ -123,6 +133,13 @@ private:
      */
     void extendArray();
 
+    /* Method: deepCoping;
+     * Usage: deepCoping(VectorSHPP src);
+     * ------------------------------------------------
+     * Coping received  VectorSHPP to "this" VectorSHPP
+     */
+    void deepCoping(const VectorSHPP<ValueType> & src);
+
 };
 
 
@@ -131,6 +148,29 @@ VectorSHPP<ValueType>::VectorSHPP(){
     array = new ValueType[START_SIZE];
     currentSize = START_SIZE;
     count = 0;
+}
+
+
+template<typename ValueType>
+void VectorSHPP<ValueType>::deepCoping(const VectorSHPP<ValueType> &src){
+    this->array = new ValueType[src.currentSize];
+    count = src.count;
+    currentSize = src.currentSize;
+    for (int i = 0; i < src.count; i++){
+        array[i] = src.array[i];
+    }
+}
+
+template<typename ValueType>
+VectorSHPP<ValueType>::VectorSHPP(const VectorSHPP<ValueType> & src){
+    deepCoping(src);
+}
+
+template<typename ValueType>
+VectorSHPP<ValueType> & VectorSHPP<ValueType>::operator =(const VectorSHPP<ValueType> & src){
+    delete[] array;
+    deepCoping(src);
+    return *this;
 }
 
 template<typename ValueType>
