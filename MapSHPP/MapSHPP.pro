@@ -18,5 +18,4 @@ TEMPLATE = app
 SOURCES += main.cpp
 
 HEADERS += \
-    mapshpp.h \
-    vectorshpp.h
+    mapshpp.h

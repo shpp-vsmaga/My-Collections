@@ -9,18 +9,12 @@ int main(){
     map.put(2, "SV");
     map.put(3, "Ser");
 
-    for(int i = 0; i < map.size(); i++){
-        cout << map.getKey(i) << " - " << map.get(map.getKey(i)) << endl;
-    }
-    map[2] = "hallo";
+    cout << map[1] << endl;
+    cout << map[3] << endl;
     cout << map[2] << endl;
 
-    if(map.containsKey(2)){
-        cout << "Contains" << endl;
-    }
-    map.remove(2);
+    map[1] = "Olya";
 
-    for(int i = 0; i < map.size(); i++){
-        cout << map.getKey(i) << " - " << map.get(map.getKey(i)) << endl;
-    }
+    cout << map[1] << endl;
+    return 0;
 }
