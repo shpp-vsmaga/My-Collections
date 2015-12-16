@@ -177,7 +177,7 @@ VectorSHPP<ValueType> & VectorSHPP<ValueType>::operator =(const VectorSHPP<Value
 template<typename ValueType>
 ValueType & VectorSHPP<ValueType>::operator[](int index){
     if(index < 0 || index >= count){
-        std::cout << "Fatal error: index is not valid" << std::endl;
+        std::cout << "operator[]::Fatal error: index is not valid" << std::endl;
         exit(1);
     }
 
@@ -200,7 +200,7 @@ void VectorSHPP<ValueType>::clear(){
 template <typename ValueType>
 ValueType VectorSHPP<ValueType>::get(int index) const{
     if(index < 0 || index >= count){
-        std::cout << "Fatal error: index is not valid" << std::endl;
+        std::cout << "get::Fatal error: index is not valid" << std::endl;
         exit(1);
     }
 
@@ -211,7 +211,7 @@ template <typename ValueType>
 void VectorSHPP<ValueType>::insert(int index, ValueType value){
     if (count == currentSize) extendArray();
     if(index < 0 || index >= count){
-        std::cout << "Fatal error: index is not valid" << std::endl;
+        std::cout << "insert::Fatal error: index is not valid" << std::endl;
         exit(1);
     }
 
@@ -239,7 +239,7 @@ bool VectorSHPP<ValueType>::isEmpty() const{
 template <typename ValueType>
 void VectorSHPP<ValueType>::remove(int index){
     if(index < 0 || index >= count){
-        std::cout << "Fatal error: index is not valid" << std::endl;
+        std::cout << "remove::Fatal error: index is not valid" << std::endl;
         exit(1);
     }
     for(int i = index; i < count-1; i++){
@@ -252,7 +252,7 @@ void VectorSHPP<ValueType>::remove(int index){
 template <typename ValueType>
 void VectorSHPP<ValueType>::set(int index, ValueType value){
     if(index < 0 || index >= count){
-        std::cout << "Fatal error: index is not valid" << std::endl;
+        std::cout << "set::Fatal error: index is not valid" << std::endl;
         exit(1);
     }
     array[index] = value;

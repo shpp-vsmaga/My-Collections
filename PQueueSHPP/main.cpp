@@ -12,7 +12,6 @@ int main(){
     prior.enqueue("Ilona",10);
     prior.enqueue("Olya", -3);
 
-    prior.changePriority("Olya", 15);
 
     cout << "size : "<< prior.size() << endl;
 
