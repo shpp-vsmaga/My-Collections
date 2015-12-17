@@ -100,7 +100,7 @@ public:
      * Overloads [] operator for compatibility VectorSHPP with
      * standart arrays.
      */
-    ValueType& operator[](int);
+    const ValueType& operator[](int) const;
 
     /* Copy constructor*/
     VectorSHPP(const VectorSHPP<ValueType> & src);
@@ -175,7 +175,7 @@ VectorSHPP<ValueType> & VectorSHPP<ValueType>::operator =(const VectorSHPP<Value
 }
 
 template<typename ValueType>
-ValueType & VectorSHPP<ValueType>::operator[](int index){
+const ValueType & VectorSHPP<ValueType>::operator[](int index) const {
     if(index < 0 || index >= count){
         std::cout << "operator[]::Fatal error: index is not valid" << std::endl;
         exit(1);
@@ -277,8 +277,7 @@ void VectorSHPP<ValueType>::extendArray(){
 
 template<typename ValueType>
 VectorSHPP<ValueType>::~VectorSHPP(){
-    count = 0;
-    delete[] array;
+    //delete[] array;
 }
 
 #endif // VECTORSHPP
