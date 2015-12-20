@@ -16,5 +16,12 @@ int main(){
     map[1] = "Olya";
 
     cout << map[1] << endl;
+
+    if(map.containsKey(3)){
+        cout << "Contains" << endl;
+    } else {
+        cout << "Not contains" << endl;
+    }
+
     return 0;
 }

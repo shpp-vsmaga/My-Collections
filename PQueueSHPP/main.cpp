@@ -14,44 +14,20 @@ int main(){
     int b = a % 2;
     cout << b << endl << endl;
 
-   //PQueueSHPP<string> prior = getQueue();
-    PQueueSHPP<string> prior;
-//    prior.enqueue("Vlad",5);
-//    prior.enqueue("Valik",3);
-//    prior.enqueue("Ilona",10);
-//    prior.enqueue("Olya", -3);
+   PQueueSHPP<string> prior = getQueue();
 
 
-   //prior.enqueue("Vlad",2);
-   prior.enqueue("Valik",4);
-   prior.enqueue("Ilona",4);
-   prior.enqueue("Olya", 4);
-   //prior.enqueue("Olya", 4);
-   prior.enqueue("Olya", 8);
-   //prior.enqueue("Olya", 223);
-   //prior.enqueue("Olya", 65);
-   //prior.enqueue("Olya", 22);
-//   prior.enqueue("Olya", 21);
-//   prior.enqueue("Olya", 258);
-//   prior.enqueue("Olya", 19);
-//   prior.enqueue("Olya", 10);
-//   prior.enqueue("Olya", 17);
-//   prior.enqueue("Olya", 16);
-//   prior.enqueue("Olya", 15);
-//   prior.enqueue("Olya", 14);
-//   prior.enqueue("Olya", 13);
-//   prior.enqueue("Olya", 12);
-//   prior.enqueue("Olya", 10);
-//   prior.enqueue("Olya", 10);
-//   prior.enqueue("Olya", 9);
-//   prior.enqueue("Olya", 8);
-//   prior.enqueue("Olya", 7);
-//   prior.enqueue("Olya", 6);
-//   prior.enqueue("Olya", 5);
+    //PQueueSHPP<string> prior;
+
+//   prior.enqueue("Valik",4);
+//   prior.enqueue("Ilona",4);
 //   prior.enqueue("Olya", 4);
-//   prior.enqueue("Olya", 3);
-//   prior.enqueue("Olya", 2);
-//   prior.enqueue("Olya", 1);
+//   prior.enqueue("Olya", 4);
+//   prior.enqueue("Olya", 4);
+//   prior.enqueue("Olya", 4);
+//   prior.enqueue("Valik",6);
+
+
     cout << "size : "<< prior.size() << endl;
 
     cout << "is empty " << prior.isEmpty() << endl;
@@ -59,7 +35,6 @@ int main(){
     cout << "peek value " << prior.peek() << endl;
 
     cout << "peek priority " << prior.peekPriority() << endl;
-    //cout << "str " << prior.toStr() << endl;
 
     cout << endl;
 
@@ -69,6 +44,7 @@ int main(){
         cout  << i << " " <<prior.dequeue() << endl;
     }
 
+    cout << "End" << endl;
 
     return 0;
 }

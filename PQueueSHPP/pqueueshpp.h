@@ -7,7 +7,6 @@
 #define PQUEUESHPP_H
 
 #include <iostream>
-//#include <vector>
 #include <string>
 #include "vectorshpp.h"
 
@@ -91,13 +90,8 @@ public:
     int size();
 
 
-    /**
-     * Copy constructor
-     * ---------------------------------------------
-     * @param src Source instance of PQueue
-     */
+    /* Copy constructor and assign operator*/
     PQueueSHPP(const PQueueSHPP<ValueType>& src);
-
     PQueueSHPP<ValueType> & operator=(const PQueueSHPP<ValueType>& src);
 
 
@@ -226,7 +220,7 @@ void PQueueSHPP<ValueType>::deleteHeap(Node *node){
 
 template<typename ValueType>
 void PQueueSHPP<ValueType>::deepCopy(const PQueueSHPP<ValueType> & src){
-    for (unsigned int i = 0; i < src.vec.size(); i++){
+    for (int i = 0; i < src.vec.size(); i++){
         Node* newNode = new Node;
         newNode->priority = src.vec[i]->priority;
         newNode->value = src.vec[i]->value;
@@ -234,7 +228,7 @@ void PQueueSHPP<ValueType>::deepCopy(const PQueueSHPP<ValueType> & src){
         this->vec.add(newNode);
     }
 
-    for(unsigned int i = 0; i < vec.size(); i++){
+    for(int i = 0; i < vec.size(); i++){
 
         if (2 * i + 1 < vec.size()){
             vec[i]->left = vec[2 * i + 1];
@@ -288,7 +282,6 @@ void PQueueSHPP<ValueType>::enqueue(ValueType value, double priority){
         }
         shiftUp(newNode);
     }
-
 }
 
 template<typename ValueType>
@@ -308,14 +301,12 @@ ValueType PQueueSHPP<ValueType>::dequeue(){
                 endNode->parent->right = 0;
             }
             vec.remove(vec.size() - 1);
-            //vec.pop_back();
             delete endNode;
             shiftDown(startNode);
         } else if (vec.size() == 1){
             result = vec[0]->value;
             delete vec[0];
             vec.remove(0);
-
         }
         counter--;
         return result;
@@ -351,9 +342,6 @@ template<typename ValueType>
 int PQueueSHPP<ValueType>::size() {
     return vec.size();
 }
-
-
-
 
 #endif // PQUEUESHPP
 

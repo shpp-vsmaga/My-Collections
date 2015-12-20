@@ -20,7 +20,8 @@ class MapSHPP{
 /* Public methods prototypes*/
 public:
 
-    /* Constructor: MapSHPP
+    /**
+     * Constructor: MapSHPP
      * Usage: MapSHPP<KeyType, ValueType> map;
      * -----------------------------------------------------
      * Initializes a new empty MapSHPP
@@ -30,7 +31,8 @@ public:
     /* Destructor: ~MapSHPP*/
     virtual ~MapSHPP();
 
-    /* Method: put
+    /**
+     * Method: put
      * Usage: map.put(key, value);
      * ----------------------------------------------------
      * Adds a new element to the map with specified index
@@ -39,49 +41,56 @@ public:
      */
     void put(KeyType, ValueType);
 
-    /* Method: get
+    /**
+     * Method: get
      * Usage: value = map.get(key);
      * ---------------------------------------------------
      * Returns value of the element with specified key.
      */
     ValueType get(KeyType key);
 
-    /* Method: isEmpty
+    /**
+     * Method: isEmpty
      * Usage: if (map.isEmpty())...
      * ----------------------------------------------------
      * Returns true if there are no elements in the map`
      */
     bool isEmpty();
 
-    /* Method: clear
+    /**
+     * Method: clear
      * Usage: map.clear();
      * ----------------------------------------------------
      * Removes all elements in the map
      */
     void clear();
 
-    /* Method: size
+    /**
+     * Method: size
      * Usage: int size = map.size();
      * ----------------------------------------------------
      * Returns current number of the elements if the map
      */
     int size();
 
-    /* Method: remove
+    /**
+     * Method: remove
      * Usage: map.remove(key);
      * ----------------------------------------------------
      * Removes key-value pair with spevified key
      */
     void remove(KeyType);
 
-    /* Method: containsKey
+    /**
+     * Method: containsKey
      * Usage: if (map.containsKey(key))...
      * ---------------------------------------------------
      * Returns true if specified key exist in the map
      */
     bool containsKey(KeyType key);
 
-    /* Operator: []
+    /**
+     * Operator: []
      * Usage: map[key] = value;
      * ---------------------------------------------------
      * Returns link to value by the specfied key.
@@ -100,18 +109,96 @@ private:
         BSTNode* right;
     };
 
+    /**
+     * Method: balanceTree
+     * ---------------------------------------------------
+     * Balance the binary tree
+     */
     BSTNode* balanceTree(BSTNode* node);
+
+    /**
+     * Method: getNodeHeight
+     * --------------------------------------------------
+     * Returns the height of  current sub-tree or 0
+     * if tree is empty
+     */
     int getNodeHeight(BSTNode* node);
+
+    /**
+     * Method: getBalanceFactor
+     * -------------------------------------------------
+     * Return the differnce between height of right and
+     * left sub-trees
+     */
     int getBalanceFactor(BSTNode* node);
+
+    /**
+     * Method: fixHeight
+     * ------------------------------------------------
+     * Recalculates the height of a given node
+     */
     void fixHeight(BSTNode* node);
+
+    /**
+     * Method: rotateRight
+     * -----------------------------------------------
+     * Rotates tree right around a given node
+     */
     BSTNode* rotateRight(BSTNode* node);
+
+    /**
+     * Method: rotateRight
+     * -----------------------------------------------
+     * Rotates tree left around a given node
+     */
     BSTNode* rotateLeft(BSTNode* node);
 
+    /**
+     * Method: insertNode
+     * -----------------------------------------------
+     * Inserts new node with received key and value to
+     * the tree and balance it after this
+     */
     BSTNode* insertNode(BSTNode* node, KeyType key, ValueType value);
+
+    /**
+     * Method: removeNode
+     * -----------------------------------------------
+     * Removed node with received key and balance tree
+     * after this
+     */
     BSTNode* removeNode(BSTNode* node, KeyType key);
+
+    /**
+     * Method: findMinNode
+     * -----------------------------------------------
+     * Returns pointer to the node with minimal key in
+     * the received sub-tree
+     */
     BSTNode* findMinNode(BSTNode* node);
+
+    /**
+     * Method: removeMinNode
+     * -----------------------------------------------
+     * Removes minimal element of thr received sub-tree
+     * and balance it after this
+     */
     BSTNode* removeMinNode(BSTNode* node);
+
+    /**
+     * Method: findNode
+     * -----------------------------------------------
+     * Returns pointer to the node that contains received
+     * key or 0 if such node not found
+     */
     BSTNode* findNode(BSTNode* node, KeyType key);
+
+    /**
+     * Method: clearBST
+     * -----------------------------------------------
+     * Frees all memoty allocated for the nodes of
+     * the binaty tree
+     */
     void clearBST(BSTNode* node);
 
     BSTNode* root;
@@ -216,12 +303,17 @@ typename MapSHPP<KeyType, ValueType>::BSTNode* MapSHPP<KeyType, ValueType>::inse
 }
 
 
-
 template<typename KeyType, typename ValueType>
 typename MapSHPP<KeyType, ValueType>::BSTNode* MapSHPP<KeyType, ValueType>::findNode(BSTNode* node, KeyType key){
      if (key > node->Key){
+         if(node->right == 0){
+             return 0;
+         }
          return findNode(node->right, key);
      } else if (key < node->Key){
+         if (node->left == 0){
+             return 0;
+         }
          return findNode(node->left, key);
      }
       return node;
