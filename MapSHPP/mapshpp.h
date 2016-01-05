@@ -244,8 +244,8 @@ typename MapSHPP<KeyType, ValueType>::BSTNode* MapSHPP<KeyType, ValueType>::rota
     BSTNode* newRoot = node->right;
     node->right = newRoot->left;
     newRoot->left = node;
-    fixHeight(newRoot);
     fixHeight(node);
+    fixHeight(newRoot);
     return newRoot;
 }
 
@@ -263,16 +263,23 @@ typename MapSHPP<KeyType, ValueType>::BSTNode* MapSHPP<KeyType, ValueType>::rota
 template<typename KeyType, typename ValueType>
 typename MapSHPP<KeyType, ValueType>::BSTNode* MapSHPP<KeyType, ValueType>::balanceTree(BSTNode *node){
     fixHeight(node);
+
+    /*if right subtree higher then left on 2*/
     if (getBalanceFactor(node) == 2){
+        /*if left subtree higher then right - do big left rotate*/
         if (getBalanceFactor(node->right) < 0){
             node->right = rotateRight(node->right);
         }
+        /*else - do simple left rotate*/
         return rotateLeft(node);
     }
+    /*if left subtree higher then right on 2*/
     if (getBalanceFactor(node) == -2){
+        /*if right subtree higher then left - do big right rotate*/
         if (getBalanceFactor(node->left) > 0){
             node->left = rotateLeft(node->left);
         }
+        /*else - do simple right rotate*/
         return rotateRight(node);
     }
     return node;
@@ -282,7 +289,7 @@ typename MapSHPP<KeyType, ValueType>::BSTNode* MapSHPP<KeyType, ValueType>::bala
 template<typename KeyType, typename ValueType>
 typename MapSHPP<KeyType, ValueType>::BSTNode* MapSHPP<KeyType, ValueType>::insertNode(BSTNode* node, KeyType key, ValueType value){
     
-    if (node == 0){
+    if (node == 0){ //add a new leaf
         count++;
         node = new BSTNode;
         node->Key = key;
@@ -291,11 +298,11 @@ typename MapSHPP<KeyType, ValueType>::BSTNode* MapSHPP<KeyType, ValueType>::inse
         node->right = node->left = 0;
         return node;
     } else if (key > node->Key){
-        node->right = insertNode(node->right, key, value);
+        node->right = insertNode(node->right, key, value); //recurcively add to the right subtree
     } else if (key < node->Key){
-        node->left = insertNode(node->left, key, value);
+        node->left = insertNode(node->left, key, value); //recurcively add to the left subtree
     } else {
-        node->Value = value;
+        node->Value = value; // change the value
     }
     
     return balanceTree(node);
@@ -307,12 +314,12 @@ template<typename KeyType, typename ValueType>
 typename MapSHPP<KeyType, ValueType>::BSTNode* MapSHPP<KeyType, ValueType>::findNode(BSTNode* node, KeyType key){
      if (key > node->Key){
          if(node->right == 0){
-             return 0;
+             return 0; //not found in this subtree
          }
          return findNode(node->right, key);
      } else if (key < node->Key){
          if (node->left == 0){
-             return 0;
+             return 0; //not found in this subtree
          }
          return findNode(node->left, key);
      }
@@ -321,21 +328,31 @@ typename MapSHPP<KeyType, ValueType>::BSTNode* MapSHPP<KeyType, ValueType>::find
 
 template<typename KeyType, typename ValueType>
 typename MapSHPP<KeyType, ValueType>::BSTNode* MapSHPP<KeyType, ValueType>::removeNode(BSTNode* node, KeyType key){
-    if (key < node->Key){
+    /* key not found*/
+    if (node == 0){
+        return 0;
+    }
+
+    if (key < node->Key){ //find key in the left subtree
         node->left = removeNode(node->left, key);
-    } else if (key >node->Key){
+    } else if (key >node->Key){ //search key in the right subtree
         node->right = removeNode(node->right, key);
-    } else if (key == node->Key){
+    } else if (key == node->Key){ //key found
+        /*memory left and right children*/
         BSTNode* leftNode = node->left;
         BSTNode* rightNode = node->right;
+
         delete node;
         count--;
+
         if (rightNode == 0){
             return leftNode;
         }
+        /*find minimal node in the right subtree and replace it with removed node*/
         BSTNode* minNode = findMinNode(rightNode);
-        minNode->right = removeMinNode(rightNode);
-        minNode->left = leftNode;
+        minNode->right = removeMinNode(rightNode); //add right subtree without min node
+        minNode->left = leftNode; //add left subtree
+
         return balanceTree(minNode);
     }
     return balanceTree(node);
@@ -343,6 +360,7 @@ typename MapSHPP<KeyType, ValueType>::BSTNode* MapSHPP<KeyType, ValueType>::remo
 
 template<typename KeyType, typename ValueType>
 typename MapSHPP<KeyType, ValueType>::BSTNode* MapSHPP<KeyType, ValueType>::findMinNode(BSTNode *node){
+    /*in the AVL tree minimal node is the last left node*/
     if (node->left != 0){
         return findMinNode(node->left);
     }
@@ -352,7 +370,7 @@ typename MapSHPP<KeyType, ValueType>::BSTNode* MapSHPP<KeyType, ValueType>::find
 template<typename KeyType, typename ValueType>
 typename MapSHPP<KeyType, ValueType>::BSTNode* MapSHPP<KeyType, ValueType>::removeMinNode(BSTNode *node){
     if(node->left == 0){
-        return node->right;
+        return node->right; //replace min node to it's right child
     }
     node->left = removeMinNode(node->left);
     return balanceTree(node);
@@ -379,7 +397,12 @@ void MapSHPP<KeyType, ValueType>::put(KeyType key, ValueType value){
 
 template<typename KeyType, typename ValueType>
 ValueType MapSHPP<KeyType, ValueType>::get(KeyType key){
-    return findNode(root, key)->Value;
+    BSTNode* result = findNode(root, key);
+    if (result == 0){
+        std::cout << "get::No such key!!!" << std::endl;
+        exit(1);
+    }
+    return result->Value;
         
 }
 
@@ -390,7 +413,12 @@ int MapSHPP<KeyType, ValueType>::size(){
 
 template<typename KeyType, typename ValueType>
 void MapSHPP<KeyType, ValueType>::remove(KeyType key){
-    root = removeNode(root, key);
+    BSTNode* result = removeNode(root, key);
+    if (result == 0) {
+        std::cout << "remove::No such key!!!" << std::endl;
+        exit(1);
+    }
+    root = result;
 }
 
 template<typename KeyType, typename ValueType>
@@ -412,7 +440,12 @@ bool MapSHPP<KeyType, ValueType>::containsKey(KeyType key){
 
 template<typename KeyType, typename ValueType>
 ValueType& MapSHPP<KeyType, ValueType>::operator [](KeyType key){
-    return findNode(root, key)->Value;
+    BSTNode* result = findNode(root, key);
+    if (result == 0){
+        std::cout << "operator[]::No such key!!!" << std::endl;
+        exit(1);
+    }
+    return result->Value;
 }
 
 #endif // MAPSHPP
